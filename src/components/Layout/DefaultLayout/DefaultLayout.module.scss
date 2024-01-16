@@ -5,10 +5,11 @@
 }
 .container {
   width: 71.875em;
+  padding: 0 var(--default-layout-horizontal-spacer);
   display: flex;
 }
 .content {
   flex: 1;
-  background-color: #caf;
+  background-color: rgb(255, 255, 255);
   min-height: 62.5em;
 }
