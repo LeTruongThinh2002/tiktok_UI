@@ -39,6 +39,7 @@
     flex: 1;
     height: 100%;
     color: var(--black);
+    font-family: var(--font-family);
     font-size: 1.6rem;
     background-color: transparent;
     caret-color: var(primary);
@@ -62,6 +63,9 @@
 }
 
 .search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: var(--search-btn-width);
   height: 100%;
   background-color: rgb(196, 192, 192, 0.1);

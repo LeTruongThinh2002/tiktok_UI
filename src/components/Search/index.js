@@ -1,7 +1,7 @@
 import Tippy from '@tippyjs/react/headless';
-import * as searchServices from '~/apiServices/searchServices';
+import * as searchServices from '~/services/searchServices';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
-import AccountItem from '../Layout/components/AccountItem';
+import AccountItem from '~/layouts/components/AccountItem';
 import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
@@ -35,6 +35,10 @@ function Search() {
     };
     fetchApi();
   }, [debounced]);
+  const handleInputChange = (e) => {
+    e.target.value = e.target.value.trimStart();
+    setSearchValue(e.target.value);
+  };
 
   const handleClear = () => {
     setSearchValue('');
@@ -56,8 +60,8 @@ function Search() {
               <div>
                 {searchResult.map((result) => {
                   return (
-                    <span onClick={() => setSearchResult([])}>
-                      <AccountItem key={result.id} data={result} />
+                    <span key={result.id} onClick={() => setSearchResult([])}>
+                      <AccountItem data={result} />
                     </span>
                   );
                 })}
@@ -73,10 +77,7 @@ function Search() {
             value={searchValue}
             placeholder="Search your fave..."
             spellCheck={false}
-            onChange={(e) => {
-              e.target.value = e.target.value.trimStart();
-              setSearchValue(e.target.value);
-            }}
+            onChange={handleInputChange}
             onFocus={() => setShowResults(true)}
           ></input>
           {!!searchValue && !loading && (
@@ -89,7 +90,10 @@ function Search() {
             </button>
           )}
           {loading && <LoadingIcon className={cx('loading')} />}
-          <button className={cx('search-btn')}>
+          <button
+            onMouseDown={(e) => e.preventDefault()}
+            className={cx('search-btn')}
+          >
             <SearchIcon />
           </button>
         </div>
